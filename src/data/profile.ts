@@ -11,7 +11,8 @@ export const profile = {
   email: 'burhanuddinrajkotwala11@gmail.com',
   github: 'https://github.com/BurhanRajkot',
   linkedin: '', // add your LinkedIn URL and it shows up in Contact
-  resume: '', // e.g. '/resume.pdf' (put the file in /public)
+  resume: '/Burhanuddin-Rajkotwala-Resume.pdf', // built by `npm run resume` (see resume/build.mjs)
+  resumeProjects: '/Burhanuddin-Rajkotwala-Resume-Projects.pdf',
   intro:
     'From Shopify stores for real businesses to a streaming platform with its own recommendation engine — I take ideas all the way to a live site.',
   status: 'Open to internships & freelance work',
