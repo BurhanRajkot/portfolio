@@ -92,6 +92,25 @@ export const featured: FeaturedProject[] = [
     desktop: { src: '/work/streamvault.webp', alt: 'StreamVault homepage', width: 1600, height: 868 },
     mobile: { src: '/work/streamvault-mobile.webp', alt: 'StreamVault homepage on mobile', width: 600, height: 1298 },
   },
+  {
+    id: 'enlighten',
+    title: 'Enlighten SEN Services',
+    type: 'Client · Website',
+    year: '2026',
+    summary:
+      'A new website for a Mumbai special-education company that supports children with autism, ADHD and other additional needs, written for the parents looking for help.',
+    role: 'Design, development, hosting & domain',
+    points: [
+      'Replaced an old PHP template site with a fast Next.js build: services, team, blog, careers and contact pages, each with its own illustrations',
+      'Enquiry and career forms email the team through Resend, falling back to a pre-filled WhatsApp message if email is down',
+      'Moved the domain onto Vercel with HTTPS; sitemap, accessible markup and reduced-motion support, plus extra mobile animations',
+    ],
+    stack: ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Resend', 'Vercel'],
+    live: 'https://www.enlightensenservices.in/',
+    liveLabel: 'enlightensenservices.in',
+    desktop: { src: '/work/enlighten.webp', alt: 'Enlighten SEN Services homepage on desktop', width: 1600, height: 1000 },
+    mobile: { src: '/work/enlighten-mobile.webp', alt: 'Enlighten SEN Services homepage on mobile', width: 600, height: 1298 },
+  },
 ]
 
 /** Client sites currently being built. */
@@ -101,12 +120,6 @@ export const inProgress = [
     type: 'Client · Shopify OS 2.0',
     summary:
       'Rebuilding a B2B packaging manufacturer’s website as a custom Shopify theme — product catalogue with request-a-quote instead of a cart.',
-  },
-  {
-    title: 'Enlighten SEN Services',
-    type: 'Client · Website',
-    summary:
-      'A new website for a Mumbai special-education services company, written for parents of children with additional needs.',
   },
 ]
 

@@ -28,7 +28,7 @@ function Particles({ count }: { count: number }) {
   const [geometry, initialUniforms] = useMemo(() => {
     const g = new THREE.BufferGeometry()
     SHAPES.forEach((gen, i) => g.setAttribute(`p${i}`, new THREE.BufferAttribute(gen(count), 3)))
-    // `position` is required by three; the shader reads p0…p5 instead
+    // `position` is required by three; the shader reads p0…p6 instead
     g.setAttribute('position', g.getAttribute('p0'))
     const r = new Float32Array(count)
     for (let i = 0; i < count; i++) r[i] = Math.random()

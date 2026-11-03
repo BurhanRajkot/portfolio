@@ -16,6 +16,7 @@ export const CHAPTERS: Chapter[] = [
   { id: 'top', name: 'Intro', x: 0.27, o: 1, mo: 1 },
   { id: 'attarwalas', name: "Attarwala's", x: 0.3, o: 0.35, mo: 0.2 },
   { id: 'streamvault', name: 'StreamVault', x: -0.3, o: 0.35, mo: 0.2 },
+  { id: 'enlighten', name: 'Enlighten', x: 0.3, o: 0.35, mo: 0.2 },
   { id: 'projects', name: 'Projects', x: 0.3, o: 0.35, mo: 0.16 },
   { id: 'about', name: 'About', x: 0.3, o: 0.4, mo: 0.18 },
   { id: 'contact', name: 'Contact', x: 0.28, o: 1, mo: 0.35 },

@@ -75,7 +75,30 @@ export const play: Gen = (n) => {
   return out
 }
 
-/** 3 — Projects: a (2,3) torus knot */
+/** 3 — Enlighten ("Lighting up your child's path"): a sun — a domed disc ringed by tapered rays */
+export const sun: Gen = (n) => {
+  const out = new Float32Array(n * 3)
+  const rays = 12
+  for (let i = 0; i < n; i++) {
+    if (Math.random() < 0.55) {
+      // disc, slightly domed so it reads as 3D when it turns
+      const r = Math.sqrt(Math.random()) * 1.05
+      const a = Math.random() * Math.PI * 2
+      const z = Math.sqrt(Math.max(1.1 - r * r, 0)) * 0.35 * (Math.random() < 0.5 ? 1 : -1)
+      out.set([Math.cos(a) * r, Math.sin(a) * r, z], i * 3)
+    } else {
+      // rays: wedges that taper from the rim outward
+      const k = Math.floor(Math.random() * rays)
+      const t = Math.random()
+      const r = 1.35 + t * 0.65
+      const a = (k / rays) * Math.PI * 2 + rand() * 0.11 * (1 - t * 0.8)
+      out.set([Math.cos(a) * r, Math.sin(a) * r, rand() * 0.08], i * 3)
+    }
+  }
+  return out
+}
+
+/** 4 — Projects: a (2,3) torus knot */
 export const knot: Gen = (n) => {
   const out = new Float32Array(n * 3)
   const R = 1.25, tube = 0.32, p = 2, q = 3
@@ -103,7 +126,7 @@ export const knot: Gen = (n) => {
   return out
 }
 
-/** 4 — About: a DNA double helix */
+/** 5 — About: a DNA double helix */
 export const helix: Gen = (n) => {
   const out = new Float32Array(n * 3)
   const turns = 2.2, R = 0.95, H = 4.2
@@ -125,7 +148,7 @@ export const helix: Gen = (n) => {
   return out
 }
 
-/** 5 — Contact: a three-armed spiral galaxy, tilted toward the viewer */
+/** 6 — Contact: a three-armed spiral galaxy, tilted toward the viewer */
 export const galaxy: Gen = (n) => {
   const out = new Float32Array(n * 3)
   const tilt = 1.05, ct = Math.cos(tilt), st = Math.sin(tilt)
@@ -142,4 +165,4 @@ export const galaxy: Gen = (n) => {
   return out
 }
 
-export const SHAPES = [sphere, bottle, play, knot, helix, galaxy]
+export const SHAPES = [sphere, bottle, play, sun, knot, helix, galaxy]
