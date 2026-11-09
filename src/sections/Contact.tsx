@@ -49,7 +49,7 @@ export default function Contact() {
             {copied ? 'Copied ✓' : 'Copy email'}
           </button>
           {socials.map((s) => (
-            <a key={s.label} className="btn" href={s.href} target="_blank" rel="noreferrer">{s.label} ↗</a>
+            <a key={s.label} className="btn contact__social" href={s.href} target="_blank" rel="noreferrer">{s.label} ↗</a>
           ))}
         </div>
 

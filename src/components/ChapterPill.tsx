@@ -11,21 +11,31 @@ const C = 2 * Math.PI * R
  */
 export default function ChapterPill() {
   const [active, setActive] = useState(sceneState.active)
+  // phones: show for a moment when the chapter changes, then get out of the way of the content
+  const [peek, setPeek] = useState(true)
   const ring = useRef<SVGCircleElement>(null)
 
   useEffect(() => {
-    const off = onChapterChange(setActive)
+    const narrow = window.matchMedia('(max-width: 899px)')
+    let timer = 0
+    const off = onChapterChange((i) => {
+      setActive(i)
+      if (!narrow.matches) return
+      setPeek(true)
+      clearTimeout(timer)
+      timer = window.setTimeout(() => setPeek(false), 2200)
+    })
     let raf = 0
     const tick = () => {
       if (ring.current) ring.current.style.strokeDashoffset = String(C * (1 - sceneState.progress / (CHAPTERS.length - 1)))
       raf = requestAnimationFrame(tick)
     }
     tick()
-    return () => { off(); cancelAnimationFrame(raf) }
+    return () => { off(); cancelAnimationFrame(raf); clearTimeout(timer) }
   }, [])
 
   const last = CHAPTERS.length - 1
-  const hidden = active === 0 || active === last
+  const hidden = active === 0 || active === last || !peek
   const current = CHAPTERS[active]
   const next = CHAPTERS[Math.min(active + 1, last)]
 

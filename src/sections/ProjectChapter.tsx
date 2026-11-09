@@ -1,8 +1,13 @@
+import { useState, type CSSProperties } from 'react'
 import type { FeaturedProject } from '../data/profile'
+
+const wideQuery = '(min-width: 900px)'
 
 /** One featured, live project laid out as a short case study: header → screenshots → details. */
 export default function ProjectChapter({ p, index, total, eager = false }: { p: FeaturedProject; index: number; total: number; eager?: boolean }) {
   const loading = eager ? 'eager' : 'lazy'
+  // phones: the bullet list starts folded so each case reads as screenshot → one-line summary → link
+  const [open, setOpen] = useState(() => typeof window !== 'undefined' && window.matchMedia(wideQuery).matches)
 
   return (
     <article className="case" id={p.id} aria-labelledby={`${p.id}-title`}>
@@ -42,16 +47,16 @@ export default function ProjectChapter({ p, index, total, eager = false }: { p: 
       <div className="case__body">
         <p className="case__summary" data-reveal>{p.summary}</p>
 
-        <div className="case__detail">
-          <h4 className="label">What I built</h4>
+        <details className="case__detail" open={open} onToggle={(e) => setOpen(e.currentTarget.open)}>
+          <summary className="label">What I built</summary>
           <ul className="ticks">
-            {p.points.map((pt) => <li key={pt}>{pt}</li>)}
+            {p.points.map((pt, i) => <li key={pt} style={{ '--i': i } as CSSProperties}>{pt}</li>)}
           </ul>
-        </div>
+        </details>
 
         <dl className="case__meta" data-reveal>
           <div><dt className="label">Role</dt><dd>{p.role}</dd></div>
-          <div><dt className="label">Stack</dt><dd>{p.stack.join(', ')}</dd></div>
+          <div><dt className="label">Stack</dt><dd className="case__stack">{p.stack.map((s) => <span key={s}>{s}</span>)}</dd></div>
           <div className="case__links">
             <a className="btn btn--primary" href={p.live} target="_blank" rel="noreferrer">Visit site ↗</a>
             {p.source && <a className="btn" href={p.source} target="_blank" rel="noreferrer">Source code ↗</a>}

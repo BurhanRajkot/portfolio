@@ -15,15 +15,15 @@ export interface Chapter {
 
 export const CHAPTERS: Chapter[] = [
   { id: 'top', name: 'Intro', x: 0.27, o: 1, mo: 1 },
-  { id: 'attarwalas', name: "Attarwala's", x: 0.3, o: 0.35, mo: 0.2 },
-  { id: 'deccan', name: 'Deccan Cans', x: -0.3, o: 0.35, mo: 0.2 },
-  { id: 'streamvault', name: 'StreamVault', x: 0.3, o: 0.35, mo: 0.2 },
-  { id: 'enlighten', name: 'Enlighten', x: -0.3, o: 0.35, mo: 0.2 },
-  { id: 'noitas', name: 'Noitas', x: 0.3, o: 0.35, mo: 0.2 },
-  { id: 'skills', name: 'Skills', x: 0.3, o: 0.22, mo: 0.12 },
-  { id: 'projects', name: 'Projects', x: 0.3, o: 0.35, mo: 0.16 },
-  { id: 'about', name: 'About', x: 0.3, o: 0.4, mo: 0.18 },
-  { id: 'contact', name: 'Contact', x: 0.28, o: 1, mo: 0.35 },
+  { id: 'attarwalas', name: "Attarwala's", x: 0.3, o: 0.35, mo: 0.07 },
+  { id: 'deccan', name: 'Deccan Cans', x: -0.3, o: 0.35, mo: 0.07 },
+  { id: 'streamvault', name: 'StreamVault', x: 0.3, o: 0.35, mo: 0.07 },
+  { id: 'enlighten', name: 'Enlighten', x: -0.3, o: 0.35, mo: 0.07 },
+  { id: 'noitas', name: 'Noitas', x: 0.3, o: 0.35, mo: 0.07 },
+  { id: 'skills', name: 'Skills', x: 0.3, o: 0.22, mo: 0.05 },
+  { id: 'projects', name: 'Projects', x: 0.3, o: 0.35, mo: 0.06 },
+  { id: 'about', name: 'About', x: 0.3, o: 0.4, mo: 0.06 },
+  { id: 'contact', name: 'Contact', x: 0.28, o: 1, mo: 0.14 },
 ]
 
 export const sceneState = {

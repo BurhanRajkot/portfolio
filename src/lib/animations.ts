@@ -49,7 +49,7 @@ export function useAnimations() {
         if (phone) {
           // the phone rises past the laptop shot and settles before the text below comes into view
           gsap.fromTo(phone,
-            { y: wide ? 140 : 90, rotate: wide ? 7 : 6 },
+            { y: wide ? 140 : 40, rotate: wide ? 7 : 4 },
             { y: wide ? -24 : 0, rotate: wide ? -1.5 : 0, ease: 'none',
               scrollTrigger: { trigger: shots, start: 'top bottom', end: wide ? 'top 15%' : 'top 40%', scrub: true } })
         }
@@ -74,13 +74,6 @@ export function useAnimations() {
       gsap.fromTo(el, { '--rule': 0 }, { '--rule': 1, ease: 'none', scrollTrigger: { trigger: el, start: 'top 98%', end: 'top 45%', scrub: true } })
     })
 
-    // ── case details: bullets slide in one after another ─────
-    gsap.utils.toArray<HTMLElement>('.case__detail').forEach((el) => {
-      gsap.from(el.querySelectorAll('.label, li'), {
-        x: -14, autoAlpha: 0, duration: 0.8, ease: 'power3.out', stagger: 0.08,
-        scrollTrigger: { trigger: el, start: 'top 85%', once: true },
-      })
-    })
 
     // ── about: the first paragraph lights up word by word as you read ──
     const lead = document.querySelector('.about__prose p')
