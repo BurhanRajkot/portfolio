@@ -1,12 +1,13 @@
 import type { FeaturedProject } from '../data/profile'
 
 /** One featured, live project laid out as a short case study: header → screenshots → details. */
-export default function ProjectChapter({ p, eager = false }: { p: FeaturedProject; eager?: boolean }) {
+export default function ProjectChapter({ p, index, total, eager = false }: { p: FeaturedProject; index: number; total: number; eager?: boolean }) {
   const loading = eager ? 'eager' : 'lazy'
 
   return (
     <article className="case" id={p.id} aria-labelledby={`${p.id}-title`}>
       <header className="case__head">
+        <p className="case__num" aria-hidden="true"><span>{String(index + 1).padStart(2, '0')}</span> / {String(total).padStart(2, '0')}</p>
         <h3 id={`${p.id}-title`} className="case__title">{p.title}</h3>
         <p className="case__type">{p.type} · {p.year}</p>
       </header>
@@ -41,7 +42,7 @@ export default function ProjectChapter({ p, eager = false }: { p: FeaturedProjec
       <div className="case__body">
         <p className="case__summary" data-reveal>{p.summary}</p>
 
-        <div className="case__detail" data-reveal>
+        <div className="case__detail">
           <h4 className="label">What I built</h4>
           <ul className="ticks">
             {p.points.map((pt) => <li key={pt}>{pt}</li>)}

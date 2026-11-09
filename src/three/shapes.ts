@@ -98,7 +98,90 @@ export const sun: Gen = (n) => {
   return out
 }
 
-/** 4 — Projects: a (2,3) torus knot */
+/** Deccan Cans: a tin can — a cylinder with rolled rims and lid seams */
+export const can: Gen = (n) => {
+  const out = new Float32Array(n * 3)
+  const R = 1.15, H = 3.4
+  for (let i = 0; i < n; i++) {
+    const a = Math.random() * Math.PI * 2
+    const k = Math.random()
+    if (k < 0.62) {
+      // wall, with two faint beading rings
+      const y = rand(-H / 2, H / 2)
+      const bead = Math.abs(Math.abs(y) - 0.55) < 0.05 ? 0.05 : 0
+      out.set([Math.cos(a) * (R - bead), y, Math.sin(a) * (R - bead)], i * 3)
+    } else if (k < 0.82) {
+      // rolled rims top and bottom
+      const top = Math.random() < 0.5 ? 1 : -1
+      const t = Math.random() * Math.PI * 2
+      const r = R + 0.06 + Math.cos(t) * 0.06
+      out.set([Math.cos(a) * r, top * (H / 2 + Math.sin(t) * 0.06), Math.sin(a) * r], i * 3)
+    } else {
+      // lid: a disc with a recessed seam ring
+      const r = Math.sqrt(Math.random()) * R
+      const y = H / 2 - (r < R - 0.18 ? 0.08 : 0)
+      out.set([Math.cos(a) * r, y, Math.sin(a) * r], i * 3)
+    }
+  }
+  return out
+}
+
+/** Noitas: an 8-bit heart — a grid of tiny voxels, like a sprite */
+export const pixelHeart: Gen = (n) => {
+  const rows = [
+    '.XX...XX.',
+    'XXXX.XXXX',
+    'XXXXXXXXX',
+    'XXXXXXXXX',
+    '.XXXXXXX.',
+    '..XXXXX..',
+    '...XXX...',
+    '....X....',
+  ]
+  const cells: [number, number][] = []
+  rows.forEach((row, r) => [...row].forEach((c, col) => { if (c === 'X') cells.push([col, r]) }))
+  const s = 0.44, w = rows[0].length, h = rows.length
+  const out = new Float32Array(n * 3)
+  for (let i = 0; i < n; i++) {
+    const [cx, cy] = cells[Math.floor(Math.random() * cells.length)]
+    // points on the surface of each voxel cube, so the pixels read as solid blocks
+    const p = [rand(-0.5, 0.5), rand(-0.5, 0.5), rand(-0.5, 0.5)]
+    const ax = Math.floor(Math.random() * 3)
+    p[ax] = Math.random() < 0.5 ? -0.5 : 0.5
+    const g = 0.86
+    out.set([
+      (cx - (w - 1) / 2 + p[0] * g) * s,
+      (-(cy - (h - 1) / 2) + p[1] * g) * s + 0.1,
+      p[2] * g * s,
+    ], i * 3)
+  }
+  return out
+}
+
+/** Skills: a tilted grid of keycaps */
+export const keys: Gen = (n) => {
+  const out = new Float32Array(n * 3)
+  const cols = 5, rows = 4, pitch = 0.78, cap = 0.3
+  const tilt = 0.75, ct = Math.cos(tilt), st = Math.sin(tilt)
+  for (let i = 0; i < n; i++) {
+    const c = Math.floor(Math.random() * cols), r = Math.floor(Math.random() * rows)
+    const cx = (c - (cols - 1) / 2) * pitch, cz = (r - (rows - 1) / 2) * pitch
+    // top face of the cap, plus its four sloped sides
+    let x: number, y: number, z: number
+    if (Math.random() < 0.55) { x = rand(-cap, cap); z = rand(-cap, cap); y = 0.22 }
+    else {
+      const side = Math.floor(Math.random() * 4), t = rand(-1, 1), h = Math.random()
+      const e = cap + (1 - h) * 0.06
+      ;[x, z] = side === 0 ? [e, t * e] : side === 1 ? [-e, t * e] : side === 2 ? [t * e, e] : [t * e, -e]
+      y = h * 0.22
+    }
+    x += cx; z += cz
+    out.set([x, y * ct - z * st, y * st + z * ct], i * 3)
+  }
+  return out
+}
+
+/** Projects: a (2,3) torus knot */
 export const knot: Gen = (n) => {
   const out = new Float32Array(n * 3)
   const R = 1.25, tube = 0.32, p = 2, q = 3
@@ -165,4 +248,5 @@ export const galaxy: Gen = (n) => {
   return out
 }
 
-export const SHAPES = [sphere, bottle, play, sun, knot, helix, galaxy]
+/** one shape per chapter, in page order (see src/lib/chapters.ts) */
+export const SHAPES = [sphere, bottle, can, play, sun, pixelHeart, keys, knot, helix, galaxy]

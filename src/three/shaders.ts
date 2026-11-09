@@ -56,6 +56,9 @@ attribute vec3 p3;
 attribute vec3 p4;
 attribute vec3 p5;
 attribute vec3 p6;
+attribute vec3 p7;
+attribute vec3 p8;
+attribute vec3 p9;
 attribute float aRand;
 
 uniform float uShape;
@@ -80,14 +83,17 @@ vec3 shapeAt(int i){
   if (i == 3) return p3;
   if (i == 4) return p4;
   if (i == 5) return p5;
-  return p6;
+  if (i == 6) return p6;
+  if (i == 7) return p7;
+  if (i == 8) return p8;
+  return p9;
 }
 
 void main(){
-  float s = clamp(uShape, 0.0, 6.0);
+  float s = clamp(uShape, 0.0, 9.0);
   float fi = floor(s);
   int i0 = int(fi);
-  int i1 = min(i0 + 1, 6);
+  int i1 = min(i0 + 1, 9);
   // each particle starts its journey at a slightly different time → organic, staggered morph
   float t = clamp((s - fi - aRand * 0.4) / 0.6, 0.0, 1.0);
   t = t * t * (3.0 - 2.0 * t);

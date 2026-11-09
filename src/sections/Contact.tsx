@@ -42,7 +42,7 @@ export default function Contact() {
           Email is the best way to reach me.
         </p>
         <a className="contact__email" href={`mailto:${profile.email}`} data-reveal>
-          {profile.email.split('@')[0]}<wbr />@{profile.email.split('@')[1]}
+          <span className="contact__part">{profile.email.split('@')[0]}</span><wbr /><span className="contact__part">@{profile.email.split('@')[1]}</span>
         </a>
         <div className="contact__actions" data-reveal>
           <button className="btn" type="button" onClick={copy} aria-live="polite">

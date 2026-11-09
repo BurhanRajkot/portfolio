@@ -1,4 +1,5 @@
 import { gsap, ScrollTrigger, SplitText, useGSAP, prefersReducedMotion } from './gsap'
+import { HERO_DELAY } from './intro'
 
 /** Page-wide GSAP motion: hero intro, title reveals, 3D screenshot tilt, parallax. */
 export function useAnimations() {
@@ -7,7 +8,7 @@ export function useAnimations() {
 
     // ── hero intro ───────────────────────────────────────────
     const name = SplitText.create('.hero__name', { type: 'chars', mask: 'chars' })
-    gsap.timeline({ delay: 0.3, defaults: { ease: 'expo.out' } })
+    gsap.timeline({ delay: HERO_DELAY, defaults: { ease: 'expo.out' } })
       .from('.hero__status', { y: 14, autoAlpha: 0, duration: 0.9 })
       .from(name.chars, { yPercent: 115, duration: 1.2, stagger: 0.03 }, 0.05)
       .from(['.hero__lead', '.edu', '.hero__actions'], { y: 18, autoAlpha: 0, duration: 1, stagger: 0.09 }, 0.55)
@@ -28,7 +29,7 @@ export function useAnimations() {
         scrollTrigger: { trigger: el, start: 'top 90%', once: true },
       })
     })
-    gsap.utils.toArray<HTMLElement>('.case__type, .section__note').forEach((el) => {
+    gsap.utils.toArray<HTMLElement>('.case__type, .section__note, .case__num').forEach((el) => {
       gsap.from(el, { autoAlpha: 0, x: -10, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 92%', once: true } })
     })
 
@@ -40,13 +41,15 @@ export function useAnimations() {
         const desktop = shots.querySelector('.shot--desktop')
         const phone = shots.querySelector('.shot--phone')
         gsap.fromTo(desktop,
-          wide ? { rotateX: 24, scale: 0.88, y: 70, autoAlpha: 0.4 } : { scale: 0.92, y: 36, autoAlpha: 0.5 },
-          { rotateX: 0, scale: 1, y: 0, autoAlpha: 1, ease: 'none',
+          wide
+            ? { rotateX: 24, scale: 0.88, y: 70, autoAlpha: 0.4 }
+            : { scale: 0.9, y: 40, autoAlpha: 0.6, clipPath: 'inset(18% 8% 0% 8% round 22px)' },
+          { rotateX: 0, scale: 1, y: 0, autoAlpha: 1, ...(wide ? {} : { clipPath: 'inset(0% 0% 0% 0% round 10px)' }), ease: 'none',
             scrollTrigger: { trigger: shots, start: 'top bottom', end: wide ? 'top 28%' : 'top 45%', scrub: true } })
         if (phone) {
           // the phone rises past the laptop shot and settles before the text below comes into view
           gsap.fromTo(phone,
-            { y: wide ? 140 : 50, rotate: wide ? 7 : 4 },
+            { y: wide ? 140 : 90, rotate: wide ? 7 : 6 },
             { y: wide ? -24 : 0, rotate: wide ? -1.5 : 0, ease: 'none',
               scrollTrigger: { trigger: shots, start: 'top bottom', end: wide ? 'top 15%' : 'top 40%', scrub: true } })
         }
@@ -65,6 +68,45 @@ export function useAnimations() {
       y: 6, autoAlpha: 0, duration: 0.5, ease: 'back.out(2.5)', stagger: { each: 0.035, from: 'start' },
       scrollTrigger: { trigger: '.kb', start: 'top 75%', once: true },
     })
+
+    // ── hairline rules draw across as each section arrives ───
+    gsap.utils.toArray<HTMLElement>('.section, .contact').forEach((el) => {
+      gsap.fromTo(el, { '--rule': 0 }, { '--rule': 1, ease: 'none', scrollTrigger: { trigger: el, start: 'top 98%', end: 'top 45%', scrub: true } })
+    })
+
+    // ── case details: bullets slide in one after another ─────
+    gsap.utils.toArray<HTMLElement>('.case__detail').forEach((el) => {
+      gsap.from(el.querySelectorAll('.label, li'), {
+        x: -14, autoAlpha: 0, duration: 0.8, ease: 'power3.out', stagger: 0.08,
+        scrollTrigger: { trigger: el, start: 'top 85%', once: true },
+      })
+    })
+
+    // ── about: the first paragraph lights up word by word as you read ──
+    const lead = document.querySelector('.about__prose p')
+    if (lead) {
+      const words = SplitText.create(lead, { type: 'words' }).words
+      gsap.fromTo(words, { opacity: 0.16 }, {
+        opacity: 1, ease: 'none', stagger: 0.1,
+        scrollTrigger: { trigger: lead, start: 'top 85%', end: 'bottom 50%', scrub: true },
+      })
+    }
+
+    // ── other projects: cards deal in from the right ─────────
+    gsap.from('.cards .card', {
+      x: 60, autoAlpha: 0, duration: 1, ease: 'expo.out', stagger: 0.08, clearProps: 'transform,opacity,visibility',
+      scrollTrigger: { trigger: '.cards', start: 'top 88%', once: true },
+    })
+
+    // ── contact: the address rises letter by letter ──────────
+    const email = document.querySelector('.contact__email')
+    if (email) {
+      const chars = SplitText.create(email, { type: 'chars', mask: 'chars' }).chars
+      gsap.from(chars, {
+        yPercent: 110, duration: 0.9, ease: 'expo.out', stagger: 0.018,
+        scrollTrigger: { trigger: email, start: 'top 92%', once: true },
+      })
+    }
 
     // images and fonts change the page height after first paint
     const refresh = () => ScrollTrigger.refresh()

@@ -28,7 +28,7 @@ function Particles({ count }: { count: number }) {
   const [geometry, initialUniforms] = useMemo(() => {
     const g = new THREE.BufferGeometry()
     SHAPES.forEach((gen, i) => g.setAttribute(`p${i}`, new THREE.BufferAttribute(gen(count), 3)))
-    // `position` is required by three; the shader reads p0…p6 instead
+    // `position` is required by three; the shader reads p0…p9 instead
     g.setAttribute('position', g.getAttribute('p0'))
     const r = new Float32Array(count)
     for (let i = 0; i < count; i++) r[i] = Math.random()
@@ -60,7 +60,7 @@ function Particles({ count }: { count: number }) {
     const wide = size.width >= 900
 
     // intro fly-in, then follow the scroll position
-    intro.current = Math.min(intro.current + dt * 0.6, 1)
+    if (sceneState.ready) intro.current = Math.min(intro.current + dt * 0.6, 1)
     uniforms.uIntro.value = intro.current
     shape.current = THREE.MathUtils.damp(shape.current, sceneState.progress, 3.2, dt)
     uniforms.uShape.value = shape.current

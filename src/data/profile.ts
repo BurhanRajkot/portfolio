@@ -74,6 +74,25 @@ export const featured: FeaturedProject[] = [
     mobile: { src: '/work/attarwalas-mobile.webp', alt: "Attarwala's homepage on mobile", width: 600, height: 1298 },
   },
   {
+    id: 'deccan',
+    title: 'Deccan Cans',
+    type: 'Client · Shopify store',
+    year: '2026',
+    summary:
+      'A new online store for Deccan Cans, a Mumbai manufacturer of plain and printed tin containers. Buyers see the rate per tin and the minimum order for every size, then order or ask for a quote.',
+    role: 'Theme design & development, store setup',
+    points: [
+      'Custom Online Store 2.0 theme built from scratch, not a Dawn fork: 29 sections and 18 templates, all editable in the theme editor',
+      'Rate card with per-size prices and minimum order quantities, enforced on the product page, in the cart drawer and on "Buy it now"',
+      'A seed script loads the catalogue, metaobjects, FAQs, pages, menus and 89 redirects through the Admin API; modular vanilla JS with scroll motion and view transitions',
+    ],
+    stack: ['Shopify', 'Liquid', 'Tailwind', 'JavaScript', 'GraphQL'],
+    live: 'https://2nktrv-99.myshopify.com/',
+    liveLabel: 'deccan-cans · store preview',
+    desktop: { src: '/work/deccan.webp', alt: 'Deccan Cans store homepage on desktop', width: 1600, height: 1000 },
+    mobile: { src: '/work/deccan-mobile.webp', alt: 'Deccan Cans store homepage on mobile', width: 600, height: 1298 },
+  },
+  {
     id: 'streamvault',
     title: 'StreamVault',
     type: 'Personal product · Full-stack',
@@ -112,17 +131,30 @@ export const featured: FeaturedProject[] = [
     desktop: { src: '/work/enlighten.webp', alt: 'Enlighten SEN Services homepage on desktop', width: 1600, height: 1000 },
     mobile: { src: '/work/enlighten-mobile.webp', alt: 'Enlighten SEN Services homepage on mobile', width: 600, height: 1298 },
   },
+  {
+    id: 'noitas',
+    title: 'Noitas',
+    type: 'Personal blog · Hugo',
+    year: '2026',
+    summary:
+      'My blog on programming, game dev, books and life — with a small pixel-art game running through every page. Reading earns coins; coins buy things.',
+    role: 'Solo — design, game, writing',
+    points: [
+      'A canvas runner on the title screen that plays itself until you press start: jump crates and pits, chain coins, hit ? blocks for powers',
+      'Coins live in the browser and spend in an in-blog shop on skins, power-ups and colour palettes; achievements, secret levels, CRT mode and 8-bit sound made with Web Audio',
+      'Hugo with custom layouts and shortcodes; Python scripts generate interactive Plotly charts for data-heavy posts',
+    ],
+    stack: ['Hugo', 'JavaScript', 'Canvas', 'Web Audio', 'Python'],
+    live: 'https://burhan-blog.vercel.app/',
+    liveLabel: 'burhan-blog.vercel.app',
+    source: 'https://github.com/BurhanRajkot/Blog',
+    desktop: { src: '/work/noitas.webp', alt: 'Noitas blog title screen with the pixel-art runner game', width: 1600, height: 1000 },
+    mobile: { src: '/work/noitas-mobile.webp', alt: 'Noitas blog on mobile', width: 600, height: 1298 },
+  },
 ]
 
 /** Client sites currently being built. */
-export const inProgress = [
-  {
-    title: 'Deccan Cans',
-    type: 'Client · Shopify OS 2.0',
-    summary:
-      'Rebuilding a B2B packaging manufacturer’s website as a custom Shopify theme — product catalogue with request-a-quote instead of a cart.',
-  },
-]
+export const inProgress: { title: string; type: string; summary: string }[] = []
 
 export interface Project {
   title: string
@@ -183,15 +215,6 @@ export const projects: Project[] = [
     ],
     stack: ['Python', 'Flask', 'Chrome Extension'],
     links: [{ label: 'Source', href: 'https://github.com/BurhanRajkot/Mumbai-Hacks-2025' }],
-  },
-  {
-    title: 'Noitas',
-    type: 'Personal blog',
-    year: '2026',
-    summary: 'My blog on programming, game development, books and life, with charts generated from data.',
-    points: ['Hugo with custom layouts and shortcodes', 'Python scripts generate interactive Plotly charts'],
-    stack: ['Hugo', 'Python'],
-    links: [{ label: 'Source', href: 'https://github.com/BurhanRajkot/Blog' }],
   },
   {
     title: 'MediBase',

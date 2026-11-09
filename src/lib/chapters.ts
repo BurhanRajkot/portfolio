@@ -1,5 +1,6 @@
 // Shared, framework-free state for the scroll-driven 3D scene.
 // The DOM sections tell us how far through the page we are; the WebGL scene reads it every frame.
+import { SHOW_LOADER } from './intro'
 
 export interface Chapter {
   id: string
@@ -15,8 +16,11 @@ export interface Chapter {
 export const CHAPTERS: Chapter[] = [
   { id: 'top', name: 'Intro', x: 0.27, o: 1, mo: 1 },
   { id: 'attarwalas', name: "Attarwala's", x: 0.3, o: 0.35, mo: 0.2 },
-  { id: 'streamvault', name: 'StreamVault', x: -0.3, o: 0.35, mo: 0.2 },
-  { id: 'enlighten', name: 'Enlighten', x: 0.3, o: 0.35, mo: 0.2 },
+  { id: 'deccan', name: 'Deccan Cans', x: -0.3, o: 0.35, mo: 0.2 },
+  { id: 'streamvault', name: 'StreamVault', x: 0.3, o: 0.35, mo: 0.2 },
+  { id: 'enlighten', name: 'Enlighten', x: -0.3, o: 0.35, mo: 0.2 },
+  { id: 'noitas', name: 'Noitas', x: 0.3, o: 0.35, mo: 0.2 },
+  { id: 'skills', name: 'Skills', x: 0.3, o: 0.22, mo: 0.12 },
   { id: 'projects', name: 'Projects', x: 0.3, o: 0.35, mo: 0.16 },
   { id: 'about', name: 'About', x: 0.3, o: 0.4, mo: 0.18 },
   { id: 'contact', name: 'Contact', x: 0.28, o: 1, mo: 0.35 },
@@ -26,6 +30,8 @@ export const sceneState = {
   /** continuous chapter position, e.g. 1.4 = 40% of the way from chapter 1 to 2 */
   progress: 0,
   active: 0,
+  /** false while the intro loader covers the page — the particles wait to fly in */
+  ready: !SHOW_LOADER,
   /** phones: the empty "stage" above the hero text where the intro shape forms (px, viewport space) */
   stage: { center: 0, radius: 0 },
 }

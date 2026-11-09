@@ -58,15 +58,6 @@ const PREVIEWS: Record<string, () => ReactNode> = {
       </div>
     </div>
   ),
-  Noitas: () => (
-    <div className="pv pv--chart">
-      <svg viewBox="0 0 200 90" preserveAspectRatio="none" aria-hidden="true">
-        <path className="pv-chart__area" d="M0 70 L25 62 L50 66 L75 44 L100 50 L125 30 L150 36 L175 16 L200 22 L200 90 L0 90 Z" />
-        <path className="pv-chart__line" pathLength={100} d="M0 70 L25 62 L50 66 L75 44 L100 50 L125 30 L150 36 L175 16 L200 22" />
-      </svg>
-      <p className="pv-caption">noitas · posts with data</p>
-    </div>
-  ),
   MediBase: () => (
     <div className="pv pv--shap">
       {[
@@ -141,7 +132,16 @@ export default function Projects() {
     const card = el?.firstElementChild as HTMLElement | null
     if (!el || !card) return
     setIndex(Math.min(Math.round(el.scrollLeft / (card.offsetWidth + 12)), projects.length - 1))
+    // cards ease down in size and fade as they slide away from the snap point
+    if (el.scrollWidth <= el.clientWidth) return
+    const left = el.getBoundingClientRect().left + parseFloat(getComputedStyle(el).scrollPaddingLeft || '0')
+    for (const c of Array.from(el.children) as HTMLElement[]) {
+      const d = Math.min(Math.abs(c.getBoundingClientRect().left - left) / c.offsetWidth, 1)
+      c.style.setProperty('--s', String(1 - d * 0.07))
+      c.style.setProperty('--o', String(1 - d * 0.35))
+    }
   }
+  useEffect(onScroll, [])
 
   return (
     <section className="section" id="projects" aria-labelledby="projects-title">
@@ -151,7 +151,7 @@ export default function Projects() {
           <p className="section__note">Apps, AI tools &amp; hackathon builds</p>
         </header>
 
-        <div className="building" data-reveal>
+        {inProgress.length > 0 && <div className="building" data-reveal>
           <h3 className="label">Currently building</h3>
           <ul>
             {inProgress.map((p) => (
@@ -162,7 +162,7 @@ export default function Projects() {
               </li>
             ))}
           </ul>
-        </div>
+        </div>}
 
         <div className="cards__bar">
           <h3 className="label">More projects</h3>
