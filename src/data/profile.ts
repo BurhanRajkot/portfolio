@@ -13,6 +13,7 @@ export const profile = {
   linkedin: '', // add your LinkedIn URL and it shows up in Contact
   resume: '/Burhanuddin-Rajkotwala-Resume.pdf', // built by `npm run resume` (see resume/build.mjs)
   resumeProjects: '/Burhanuddin-Rajkotwala-Resume-Projects.pdf',
+  projects: '/Burhanuddin-Rajkotwala-Projects.pdf', // projects only, built by `npm run resume` too
   intro:
     'From Shopify stores for real businesses to a streaming platform with its own recommendation engine — I take ideas all the way to a live site.',
   status: 'Open to internships & freelance work',

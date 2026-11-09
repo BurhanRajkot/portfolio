@@ -83,7 +83,7 @@ function resumePage(foot = '') {
         ${list([
           `<b>Attarwala’s</b> (${a('https://www.attarwalas.com/')}): built and maintain the custom, mobile-first Shopify theme for a Mumbai perfume house running since 1998. Wrote a Shopify Function that enforces “pick any N for a fixed price” bundles at checkout, with one discount covering every current and future offer.`,
           `<b>Enlighten SEN Services</b> (${a('https://www.enlightensenservices.in/')}): designed and built a new Next.js + Tailwind site for a special-education company, replacing an old PHP template. Enquiry forms email the team through Resend with a WhatsApp fallback; moved the domain to Vercel with HTTPS.`,
-          `<b>Deccan Cans</b> (in progress): rebuilding a B2B packaging manufacturer’s site as a custom Shopify OS 2.0 theme with a request-a-quote catalogue instead of a cart.`,
+          `<b>Deccan Cans</b> (${a('https://2nktrv-99.myshopify.com/', 'store preview')}): built a custom Shopify OS 2.0 theme from scratch for a Mumbai tin-container manufacturer. Per-size rates and minimum order quantities are enforced on the product page, in the cart and on “Buy it now”; a seed script loads the catalogue, content and 89 redirects through the Admin API.`,
         ])}
       </div>
     </div>
@@ -149,7 +149,8 @@ function resumePage(foot = '') {
 
 // ───────────────────────────── project write-ups ─────────────────────────────
 
-const foot = (n) => `<footer class="page__foot"><span>${profile.name} · Résumé &amp; projects</span><span>${host(SITE)} · ${n}</span></footer>`
+// page numbers and the footer label are filled in per document by paginate()
+const foot = () => `<footer class="page__foot"><span>${profile.name} · {{LABEL}}</span><span>${host(SITE)} · {{N}}</span></footer>`
 
 function featuredPage({ n, kicker, title, type, links, desktop, mobile, lede, body, side }) {
   return `
@@ -204,7 +205,7 @@ const attarwalas = featuredPage({
 
 const streamvault = featuredPage({
   n: 3,
-  kicker: 'Personal product · 02',
+  kicker: 'Personal product · 03',
   title: 'StreamVault',
   type: 'Movie &amp; TV discovery platform with its own recommendation engine',
   links: [['https://stream-vault-7u6q.vercel.app/', 'Live site ↗'], ['https://github.com/BurhanRajkot/StreamVault', 'Source ↗']],
@@ -235,7 +236,7 @@ const streamvault = featuredPage({
 
 const enlighten = featuredPage({
   n: 4,
-  kicker: 'Client work · 03',
+  kicker: 'Client work · 04',
   title: 'Enlighten SEN Services',
   type: 'Website for a Mumbai special-education (SEN) services company',
   links: [['https://www.enlightensenservices.in/', 'enlightensenservices.in ↗']],
@@ -256,6 +257,59 @@ const enlighten = featuredPage({
     block('Role', '<p>Design, development, hosting &amp; domain</p>'),
     block('Year', '<p>2026</p>'),
     block('Stack', chips(['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Resend', 'Vercel'])),
+  ].join(''),
+})
+
+const deccan = featuredPage({
+  n: 0,
+  kicker: 'Client work · 02',
+  title: 'Deccan Cans',
+  type: 'Shopify store for a Mumbai manufacturer of plain &amp; printed tin containers',
+  links: [['https://2nktrv-99.myshopify.com/', 'Store preview ↗']],
+  desktop: '/work/deccan.webp',
+  mobile: '/work/deccan-mobile.webp',
+  lede: 'A new online store, built as a custom Shopify theme from scratch. Buyers pick a tin and a size, see the rate per tin and the minimum order, then order or ask for a quote.',
+  body: [
+    block('The problem', '<p>Tins are sold in bulk: every size has its own rate and a <b>minimum order quantity</b> in the thousands. Shopify’s product page, cart and “Buy it now” button know nothing about minimums, so out of the box a buyer could order 50 tins.</p>'),
+    block('How I solved it', `<p>Each size is a variant with its rate as the price and its minimum stored in a metafield. A <b>rate card</b> section lists every range with capacity, rate, minimum and minimum order value, and adds the minimum to the cart in one click. On the product page, size chips update the price, minimum and order value live, and the quantity stepper moves in hundreds from the minimum.</p>
+      <div class="receipt"><span>4 Ltr round tin</span><span>Rs. 65.00 / tin</span><span>Minimum order</span><span>1,000 tins</span><span class="off">Typed 50 in the cart</span><span class="off">→ 1,000</span><span class="total">Order value</span><span class="total">Rs. 65,000.00</span></div>
+      <p>The cart drawer, the cart page and “Buy it now” all clamp back up to the minimum, so no path through the store can under-order.</p>`),
+    block('Built to hand over', list([
+      '29 sections and 18 templates, all with settings and presets, so the client edits every page in the theme editor',
+      'A seed script uses the <b>Admin GraphQL API</b> to load the catalogue, metafields, metaobjects (FAQs, testimonials, clients), pages, menus and 89 redirects from the old site’s URLs',
+      'Tailwind v4 with a locked palette; small vanilla ES modules loaded per section; scroll motion and view transitions, all off under reduced motion',
+    ])),
+  ].join(''),
+  side: [
+    block('Role', '<p>Theme design &amp; development, store setup</p>'),
+    block('Year', '<p>2026</p>'),
+    block('Stack', chips(['Shopify', 'Liquid', 'Tailwind CSS', 'JavaScript', 'GraphQL Admin API'])),
+  ].join(''),
+})
+
+const noitas = featuredPage({
+  n: 0,
+  kicker: 'Personal project · 05',
+  title: 'Noitas',
+  type: 'My blog, with a small pixel-art game running through every page',
+  links: [['https://burhan-blog.vercel.app/', 'burhan-blog.vercel.app ↗'], ['https://github.com/BurhanRajkot/Blog', 'Source ↗']],
+  desktop: '/work/noitas.webp',
+  mobile: '/work/noitas-mobile.webp',
+  lede: 'I write about programming, game development, books and life. I wanted the blog to feel like a game, so the whole site has one built in.',
+  body: [
+    block('The title screen', '<p>A runner drawn on a low-resolution canvas and scaled up with crisp pixels. It plays itself in demo mode until you press start, Space or tap; then you jump crates, pits and bats, chain coins into combos and hit <b>?</b> blocks for short power-ups.</p>'),
+    block('The game layer', list([
+      'Coins earned while playing and reading are saved in the browser and spent in an <b>item shop</b> on skins, permanent power-ups and colour palettes',
+      'Achievements, secret levels, a pause menu and a CRT mode',
+      '8-bit sound effects and a soundtrack synthesised with the <b>Web Audio API</b>, started only after your first click or key press',
+      'A “Player 1” profile card whose XP bar levels up with the words I have written',
+    ])),
+    block('Under the hood', '<p>Hugo with custom layouts, partials and shortcodes; about 1,700 lines of framework-free JavaScript modules for the game. Python scripts generate interactive Plotly charts that posts embed through a shortcode. Motion respects reduced-motion settings.</p>'),
+  ].join(''),
+  side: [
+    block('Role', '<p>Solo: design, game, writing</p>'),
+    block('Year', '<p>2026</p>'),
+    block('Stack', chips(['Hugo', 'JavaScript', 'Canvas', 'Web Audio', 'Python', 'Plotly'])),
   ].join(''),
 })
 
@@ -351,26 +405,18 @@ const morePage2 = `
     type: 'Website · 2026',
     summary: 'My portfolio site, where a cloud of particles reshapes itself for each section as you scroll.',
     points: [
-      'Three.js particle system morphing between seven shapes (a perfume bottle, a play button, a sun and more), written as custom GLSL shaders',
-      'Cursor repulsion and colours that follow your light or dark theme; a 3D keyboard shows where I used each skill',
+      'Three.js particle system morphing between ten shapes (a perfume bottle, a tin can, a play button, a pixel heart and more), written as custom GLSL shaders',
+      'GSAP scroll choreography with Lenis smooth scrolling; a full-screen mobile menu and a chapter pill that tracks where you are',
       'All content lives in one data file, so updating projects needs no component changes',
     ],
     stack: ['React', 'TypeScript', 'Three.js', 'GSAP', 'Vite'],
     links: [[SITE, host(SITE)]],
   })}
-  ${mini({
-    title: 'Noitas',
-    type: 'Personal blog · 2026',
-    summary: 'My blog on programming, game development, books and life, with charts generated from data.',
-    points: ['Hugo with custom layouts and shortcodes', 'Python scripts generate interactive Plotly charts for posts'],
-    stack: ['Hugo', 'Python', 'Plotly'],
-    links: [['https://github.com/BurhanRajkot/Blog', 'github.com/BurhanRajkot/Blog']],
-  })}
   <div class="closing">
     <div>
-      <p class="kicker">Currently building</p>
-      <h3>Deccan Cans <span class="tag">In progress</span></h3>
-      <p>Rebuilding a B2B packaging manufacturer’s website as a custom Shopify OS 2.0 theme: a product catalogue with request-a-quote instead of a cart.</p>
+      <p class="kicker">Hackathons</p>
+      <h3>${hackathons.length} and counting</h3>
+      <p>${hackathons.map((h) => `${h.name} (${h.when})`).join(' · ')}</p>
     </div>
     <div>
       <p class="kicker">Get in touch</p>
@@ -382,6 +428,37 @@ const morePage2 = `
   ${foot(6)}
 </section>`
 
+// projects-only document: a cover with an index, then the write-ups
+const index = [
+  ['01', 'Attarwala’s', 'Client · Shopify store', 'Custom theme and a Shopify Function for pick-any-N bundle offers'],
+  ['02', 'Deccan Cans', 'Client · Shopify store', 'Bulk tin catalogue with per-size rates and enforced minimum orders'],
+  ['03', 'StreamVault', 'Personal product · Full-stack', 'Movie &amp; TV discovery with its own multi-stage recommender'],
+  ['04', 'Enlighten SEN Services', 'Client · Website', 'Next.js site for a special-education company, from design to domain'],
+  ['05', 'Noitas', 'Personal project · Blog', 'A Hugo blog with a pixel-art game layer on every page'],
+  ['+', 'More projects', 'Apps, AI tools, hackathons', 'App Blocker, Misinfo Detector, MediBase, Claw, Agentic AI, this portfolio'],
+]
+const coverPage = `
+<section class="page cover">
+  <header class="head">
+    <h1>${profile.name}</h1>
+    <p class="role">Projects · full-stack developer · ${profile.location}</p>
+    <p class="contact">
+      ${a(`mailto:${profile.email}`, profile.email)}
+      ${a(profile.github)}
+      ${a(SITE, `Portfolio: ${host(SITE)}`)}
+      <span><span class="dot"></span>${profile.status}</span>
+    </p>
+  </header>
+  <p class="cover__lede">Websites for real businesses and products of my own — each one taken from <em class="serif">first sketch</em> to a live site.</p>
+  <ol class="index">
+    ${index.map(([n, t, k, d]) => `<li><span class="index__n">${n}</span><div><p class="index__t">${t}</p><p class="index__k">${k}</p></div><p class="index__d">${d}</p></li>`).join('')}
+  </ol>
+  ${foot()}
+</section>`
+
+/** number the pages and set the footer label for one document */
+const paginate = (html, label) => { let n = 0; return html.replaceAll('{{LABEL}}', label).replace(/\{\{N\}\}/g, () => String(++n)) }
+
 // ───────────────────────────── write + print ─────────────────────────────
 
 const doc = (title, pages) => `<!DOCTYPE html>
@@ -392,7 +469,9 @@ const doc = (title, pages) => `<!DOCTYPE html>
 const docs = [
   ['Burhanuddin-Rajkotwala-Resume', `${profile.name}: Résumé`, resumePage()],
   ['Burhanuddin-Rajkotwala-Resume-Projects', `${profile.name}: Résumé & projects`,
-    resumePage(foot(1)) + attarwalas + streamvault + enlighten + morePage1 + morePage2],
+    paginate(resumePage(foot()) + attarwalas + deccan + streamvault + enlighten + noitas + morePage1 + morePage2, 'Résumé &amp; projects')],
+  ['Burhanuddin-Rajkotwala-Projects', `${profile.name}: Projects`,
+    paginate(coverPage + attarwalas + deccan + streamvault + enlighten + noitas + morePage1 + morePage2, 'Projects')],
 ]
 
 const chrome = ['chromium', 'google-chrome-stable', 'google-chrome', 'chrome']

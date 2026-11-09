@@ -30,7 +30,7 @@ export default function Contact() {
     { label: 'GitHub', href: profile.github },
     { label: 'LinkedIn', href: profile.linkedin },
     { label: 'Résumé', href: profile.resume },
-    { label: 'Résumé + projects', href: profile.resumeProjects },
+    { label: 'Projects PDF', href: profile.projects },
   ].filter((s) => s.href)
 
   return (

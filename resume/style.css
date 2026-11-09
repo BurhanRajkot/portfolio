@@ -151,3 +151,12 @@ em.serif { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 
 .closing p + p { margin-top: 1.2mm; }
 .closing a { color: var(--accent); font-weight: 560; }
 .tag { display: inline-block; font-size: 7pt; font-weight: 600; padding: 0.3mm 1.8mm; border-radius: 10mm; background: #fff; border: 0.6pt solid var(--rule); color: var(--accent); vertical-align: 2pt; margin-left: 1.5mm; }
+
+/* projects-only cover */
+.cover__lede { margin-top: 12mm; font-size: 20pt; font-weight: 600; letter-spacing: -0.03em; line-height: 1.18; max-width: 150mm; }
+.index { margin-top: 12mm; border-top: 1.4pt solid var(--ink); }
+.index li { display: grid; grid-template-columns: 12mm 62mm 1fr; gap: 4mm; align-items: baseline; padding: 4.2mm 0; border-bottom: 0.6pt solid var(--rule); }
+.index__n { font-weight: 700; color: var(--accent); font-size: 9pt; font-variant-numeric: tabular-nums; }
+.index__t { font-size: 13pt; font-weight: 660; letter-spacing: -0.02em; line-height: 1.15; }
+.index__k { font-size: 8pt; color: var(--muted); margin-top: 0.6mm; }
+.index__d { color: var(--text-2); font-size: 9.4pt; }
